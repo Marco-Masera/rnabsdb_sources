@@ -1,1 +1,0 @@
-../../local/config/makefile_versioned_human.mk

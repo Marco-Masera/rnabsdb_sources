@@ -1,1 +1,0 @@
-../../local/config/config_human.mk
