@@ -1,0 +1,1 @@
+../../local/config/config_h38.mk
