@@ -30,7 +30,6 @@ def load_data_to_db(transcripts_bed_path, transcript_id_to_gene_id_path):
     db = MySQLdb.connect("localhost","rnabs","password","rnabsdb" )
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
-    i = 0;
     for key in transcripts.keys():
         row = transcripts[key]  
         sql = f"INSERT INTO {DB_TAB_NAME}(chromosome,start,end,transcript_id,score,strand,transcript_type,gene_name, gene_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"   

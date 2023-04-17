@@ -10,12 +10,17 @@ CONDA_ACTIVATE=set +u; source $(CONDA_ROOT)/$(CONDA_VERSION)/etc/profile.d/conda
 primary_assembly.annotation.ensg2enst.map: $(GENCODE_REFENRECE_DATA)/primary_assembly.annotation.ensg2enst.map
 	ln -s $< $@
 basic.annotation.exon.longest_transcript.bed: $(GENCODE_REFENRECE_DATA)/basic.annotation.exon.longest_transcript.bed
-	echo $(GENCODE_REFENRECE_DATA)
 	ln -s $< $@
 
 load_transcripts: basic.annotation.exon.longest_transcript.bed primary_assembly.annotation.ensg2enst.map
 	load_transcripts_to_db.py basic.annotation.exon.longest_transcript.bed primary_assembly.annotation.ensg2enst.map
 
+#Full transcript data:
+transcripts.fa.gz: $(GENCODE_REFENRECE_DATA)/transcripts.fa.gz
+	ln -s $< $@
+
+load_full_transcripts: transcripts.fa.gz
+	load_full_transcripts_to_db.py transcripts.fa.gz
 
 #Conservation: 
 #"Raw" bw with conservation
