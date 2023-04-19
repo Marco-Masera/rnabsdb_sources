@@ -47,12 +47,12 @@ repeat_rmsk.clean_chr.sorted.noscore.bed: repeat_rmsk.clean_chr.sorted.bed
 repeat_rmsk.clean_chr.sorted.noscore.bb: repeat_rmsk.clean_chr.sorted.noscore.bed $(GENCODE_REFENRECE_DATA)/ucsc_hg38.chrom.sizes
 	bedToBigBed repeat_rmsk.clean_chr.sorted.noscore.bed $(GENCODE_REFENRECE_DATA)/ucsc_hg38.chrom.sizes repeat_rmsk.clean_chr.sorted.noscore.bb
 
-
 #Repeats with coordinates converted
 repeats_coordinate_converted.csv: basic.annotation.exon.longest_transcript.db repeat_rmsk.clean_chr.sorted.noscore.bb
-	$(CONDA_ACTIVATE) /home/mmasera/.conda/envs/repeats_env;\
+#	$(CONDA_ACTIVATE) /home/mmasera/.conda/envs/repeats_env;
 	convert_coordinates_bed.py basic.annotation.exon.longest_transcript.db repeat_rmsk.clean_chr.sorted.noscore.bb > repeats_coordinate_converted.csv
 
-
+load_repeats_in_db: repeats_coordinate_converted.csv
+	load_repeats_in_db.py repeats_coordinate_converted.csv
 
 -include $(PRJ_ROOT)/local/rules/_footer.mk

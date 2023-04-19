@@ -1,0 +1,27 @@
+Strand +:
+Esoni:
+chr2|67331880|67332062|ENST00000693757.1|0|+|lncRNA|ENSG00000289533
+chr2|67333952|67334150|ENST00000693757.1|0|+|lncRNA|ENSG00000289533
+chr2|67346187|67346628|ENST00000693757.1|0|+|lncRNA|ENSG00000289533
+Repeats:
+chr2|67331880|67331882  => 0, 2
+chr2|67331881|67333953  => 1, 183
+
+Strand -:
+chr5|10341731|10343324|ENST00000705516.1|0|-|lncRNA|ENSG00000259802
+chr5|10351537|10351773|ENST00000705516.1|0|-|lncRNA|ENSG00000259802
+chr5|10352096|10353602|ENST00000705516.1|0|-|lncRNA|ENSG00000259802
+Repeats:
+chr5|10353600|10353602  => 0, 2
+chr5|10351771|10353602  => 0, 1.508
+
+
+#Conversion test
+fake_repeats_for_test_sorted.bed: fake_repeats_for_test.bed
+	cat fake_repeats_for_test.bed | bedtools sort > fake_repeats_for_test_sorted.bed
+fake_repeats_for_test.bb: fake_repeats_for_test_sorted.bed
+	bedToBigBed fake_repeats_for_test_sorted.bed $(GENCODE_REFENRECE_DATA)/ucsc_hg38.chrom.sizes fake_repeats_for_test.bb
+run_test: basic.annotation.exon.longest_transcript.db fake_repeats_for_test.bb
+	convert_coordinates_bed.py -i ENST00000705516.1 basic.annotation.exon.longest_transcript.db fake_repeats_for_test.bb
+	convert_coordinates_bed.py -i ENST00000693757.1 basic.annotation.exon.longest_transcript.db fake_repeats_for_test.bb
+	
