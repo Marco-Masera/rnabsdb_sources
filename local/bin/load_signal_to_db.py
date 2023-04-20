@@ -23,7 +23,7 @@ def load_data_to_db(file_path, tab_name):
             continue
         pk = fetched[0][0]
         sql = f"INSERT INTO {tab_name} (transcript_id, signal_formatted) VALUES (%s, %s);"
-        cursor.execute(sql, (pk, "record.seq"))
+        cursor.execute(sql, (pk, record.seq))
         
     db.commit()
     db.close()
